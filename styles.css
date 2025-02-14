@@ -37,3 +37,36 @@ html body {
 .word {
   padding: 0 0.5rem;
 }
+
+.char.correct {
+  color: #75E0AD;
+}
+
+.char.wrong {
+  color: #E0544B;
+}
+
+.char.active {
+  position: relative;
+}
+
+.char.active:before {
+  position: absolute;
+  display: inline-block;
+  content: '|';
+  animation: blink 1s step-end infinite;
+  top: -5px;
+  left: -0.5rem;
+}
+
+@keyframes blink {
+  0% {
+    color: #fff;
+  }
+  50% {
+    color: #3b4148;
+  }
+  100% {
+    color: #fff;
+  }
+}

@@ -23,7 +23,7 @@ function getRandomWordList(wordList) {
   return randomWordList;
 }
 
-function makeWordElementList(randomWordList) {
+function generateWordElementString(randomWordList) {
   container.innerHTML = randomWordList
     .map(
       (word) =>
@@ -35,12 +35,45 @@ function makeWordElementList(randomWordList) {
     .join(' ');
 }
 
+function startCaret() {
+  const wordElementList = container.querySelectorAll('.word');
+  const firstLetter = wordElementList[0].querySelector('.char');
+  wordElementList[0].classList.add('active');
+  firstLetter.classList.add('active');
+}
+
+function checkCorrectKeyPressed(event) {
+  let currentWord = document.querySelector('.word.active');
+  let currentChar = currentWord.querySelector('.active');
+
+  let nextWord = currentWord.nextElementSibling;
+  let nextChar = currentChar.nextElementSibling;
+
+  if (currentChar.textContent === event.key) {
+    currentChar.classList.add('correct');
+  } else {
+    currentChar.classList.add('wrong');
+  }
+
+  if (!nextChar && !nextWord) return;
+  if (!nextChar) {
+    nextChar = nextWord.querySelector('.char');
+    currentWord.classList.remove('active');
+    nextWord.classList.add('active');
+  }
+
+  currentChar.classList.remove('active');
+  nextChar.classList.add('active');
+}
+
 function initGame() {
   const randomWordList = getRandomWordList(wordList);
-  makeWordElementList(randomWordList);
+  generateWordElementString(randomWordList);
+  startCaret();
+
   // startTimer();
+
+  appContainer.addEventListener('keydown', checkCorrectKeyPressed);
 }
 
 initGame();
-
-
