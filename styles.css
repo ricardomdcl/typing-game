@@ -59,6 +59,10 @@ html body {
   left: -0.5rem;
 }
 
+.char.active.last-char::before {
+  left: 0.5rem;
+}
+
 @keyframes blink {
   0% {
     color: #fff;

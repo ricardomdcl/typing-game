@@ -45,21 +45,27 @@ function startCaret() {
 function checkCorrectKeyPressed(event) {
   let currentWord = document.querySelector('.word.active');
   let currentChar = currentWord.querySelector('.active');
-
   let nextWord = currentWord.nextElementSibling;
   let nextChar = currentChar.nextElementSibling;
 
-  if (currentChar.textContent === event.key) {
+  if (currentChar.classList.contains('last-char') && event.key !== ' ') return;
+
+  if (currentChar.textContent === event.key && !currentChar.classList.contains('last-char')) {
     currentChar.classList.add('correct');
-  } else {
+  } else if (!currentChar.classList.contains('last-char')) {
     currentChar.classList.add('wrong');
   }
 
   if (!nextChar && !nextWord) return;
-  if (!nextChar) {
+
+  if (!nextChar && event.key === ' ') {
     nextChar = nextWord.querySelector('.char');
     currentWord.classList.remove('active');
     nextWord.classList.add('active');
+  }
+  if (!nextChar && !currentChar.classList.contains('last-char')) {
+    currentChar.classList.add('last-char');
+    return;
   }
 
   currentChar.classList.remove('active');
@@ -77,3 +83,28 @@ function initGame() {
 }
 
 initGame();
+
+/**
+ *
+ * TODO
+ *
+ * Randomize words ✅
+ * Get the containers ✅
+ *
+ * Generate containers for the words ✅
+ * Generate containers for the characters ✅
+ *
+ * Add an event listener to get the key inputs ✅
+ * check the inputs with the text ✅
+ * maybe remove the char from an array when it is correct ⛔
+ * Add again when the user press backspace ⛔
+ *
+ * add counter
+ * Stop the game when the counter finishes
+ *
+ * Add counter of correct strokes
+ * Add counter of wrong strokes or total strokes to get the percentage
+ *
+ *
+ *
+ */
