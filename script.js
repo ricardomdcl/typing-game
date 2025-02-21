@@ -48,6 +48,28 @@ function checkCorrectKeyPressed(event) {
   let nextWord = currentWord.nextElementSibling;
   let nextChar = currentChar.nextElementSibling;
 
+  if (event.key === 'Backspace') {
+    let prevChar = currentChar.previousElementSibling;
+    let prevWord = currentWord.previousElementSibling;
+
+    if (prevChar && !nextChar && currentChar.classList.contains('last-char')) {
+      currentChar.classList.remove('correct', 'wrong', 'last-char');
+    } else if (prevChar) {
+      currentChar.classList.remove('active', 'correct', 'wrong');
+      prevChar.classList.remove('correct', 'wrong');
+      prevChar.classList.add('active');
+      currentChar = prevChar;
+    } else if (!prevChar && prevWord && prevWord.querySelectorAll('.wrong').length) {
+      currentWord.classList.remove('active');
+      prevWord.classList.add('active');
+      prevChar = prevWord.lastChild;
+      currentChar.classList.remove('active');
+      prevChar.classList.add('active', 'last-char');
+    }
+
+    return;
+  }
+
   if (currentChar.classList.contains('last-char') && event.key !== ' ') return;
 
   if (currentChar.textContent === event.key && !currentChar.classList.contains('last-char')) {
@@ -84,27 +106,3 @@ function initGame() {
 
 initGame();
 
-/**
- *
- * TODO
- *
- * Randomize words ✅
- * Get the containers ✅
- *
- * Generate containers for the words ✅
- * Generate containers for the characters ✅
- *
- * Add an event listener to get the key inputs ✅
- * check the inputs with the text ✅
- * maybe remove the char from an array when it is correct ⛔
- * Add again when the user press backspace ⛔
- *
- * add counter
- * Stop the game when the counter finishes
- *
- * Add counter of correct strokes
- * Add counter of wrong strokes or total strokes to get the percentage
- *
- *
- *
- */
