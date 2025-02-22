@@ -1,10 +1,19 @@
+:root {
+  --background-gray: #3b4148;
+  --font-primary: white;
+  --font-secondary: rgb(241, 241, 143);
+  --font-correct: #75e0ad;
+  --font-wrong: #e0544b;
+}
+
 html body {
-  width: 100vw;
   height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  color: white;
+  color: var(--font-primary);
   font-family: Menlo, monospace;
   font-size: 24px;
 }
@@ -15,23 +24,54 @@ html body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3b4148;
+  background-color: var(--background-gray);
+}
+
+.game-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-container {
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.result-qty {
+  color: var(--font-secondary);
+  font-size: 3rem;
+}
+
+.btn-restart {
+  cursor: pointer;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 2px solid transparent;
+  font-size: 1.5rem;
+  color: var(--background-gray);
+  border-radius: 5px;
+}
+
+.btn-restart:hover {
+  border: 2px solid var(--font-secondary);
 }
 
 .timer {
-  color: rgb(241, 241, 143);
+  color: var(--font-secondary);
   position: absolute;
   left: 25%;
-  top: 25%;
+  top: 20%;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
-  height: 16.5rem;
+  min-height: 24rem;
   width: 50%;
-  overflow-x: visible;
-  overflow-y: hidden;
 }
 
 .word {
@@ -39,11 +79,11 @@ html body {
 }
 
 .char.correct {
-  color: #75E0AD;
+  color: var(--font-correct);
 }
 
 .char.wrong {
-  color: #E0544B;
+  color: var(--font-wrong);
 }
 
 .char.active {
@@ -65,12 +105,40 @@ html body {
 
 @keyframes blink {
   0% {
-    color: #fff;
+    color: var(--font-primary);
   }
   50% {
-    color: #3b4148;
+    color: var(--background-gray);
   }
   100% {
-    color: #fff;
+    color: var(--font-primary);
+  }
+}
+
+@media (max-width: 1024px) {
+  .timer {
+    left: 15%;
+    top: 15%;
+  }
+}
+
+@media (max-width: 767px) {
+  html body {
+    height: fit-content;
+    min-height: 100vh;
+  }
+
+  .container {
+    padding: 2rem 0;
+    min-height: 100vh;
+  }
+
+  .results-container {
+    height: 100vh;
+  }
+
+  .timer {
+    left: 1.5rem;
+    top: 1.5rem;
   }
 }
